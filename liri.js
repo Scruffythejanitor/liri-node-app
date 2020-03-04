@@ -7,7 +7,7 @@ var moment = require('moment');
 var fs = require('fs')
 
 var runApp = process.argv[2]
-var info = process.argv[3]
+var info = process.argv.slice(3).join(' ')
 
 switch (runApp) {
     case "concert-this":
@@ -29,9 +29,9 @@ function concertThis(info) {
         .then(function (response) {
             for (var i = 0; i < response.data.length; i++) {
                 console.log("----------------------------------------");
-                console.log("Venue: " + response.data[i].venue.name);
-                console.log("City: " + response.data[i].venue.city);
-                console.log("Date & Time: " + moment(response.data[i].datetime).format('llll'));
+                console.log('\x1b[32m%s\x1b[0m',"Venue: " + response.data[i].venue.name);
+                console.log('\x1b[32m%s\x1b[0m',"City: " + response.data[i].venue.city);
+                console.log('\x1b[32m%s\x1b[0m',"Date & Time: " + moment(response.data[i].datetime).format('llll'));
 
             }
         })
@@ -52,11 +52,11 @@ function spotifyThisSong(info) {
         .then(function (response) {
             for(i=0; i < 10; i++){
                 console.log('---------------------------------------------');
-                console.log('Artist: ' + response.tracks.items[i].artists[0].name);
-                console.log('Track Title: ' + response.tracks.items[i].name);
-                console.log('Album: ' + response.tracks.items[i].album.name);
-                console.log('Prieview URL: ' + response.tracks.items[i].preview_url);
-                console.log("          ");
+                console.log('\x1b[32m%s\x1b[0m','Artist: ' + response.tracks.items[i].artists[0].name);
+                console.log('\x1b[36m%s\x1b[0m','Track Title: ' + response.tracks.items[i].name);
+                console.log('\x1b[33m%s\x1b[0m','Album: ' + response.tracks.items[i].album.name);
+                console.log('\x1b[31m%s\x1b[0m','Prieview URL: ' + response.tracks.items[i].preview_url);
+                console.log("");
             }
         })
         .catch(function (err) {
